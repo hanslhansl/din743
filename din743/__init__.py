@@ -1,7 +1,7 @@
 """
 Implementiert die DIN 743 zur Tragfähigkeitsberechnung von Wellen und Achsen.
 
-Siehe https://github.com/hanslhansl/DIN_743.
+Siehe https://github.com/hanslhansl/din743.
 """
 
 
