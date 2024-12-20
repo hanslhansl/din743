@@ -150,18 +150,18 @@ class Calculator:
             _print("τ_tW(d_B) =", self.tau_tW_d_B)
 
         if self.K_1B_d_eff == None:
-            self.K_1B_d_eff = din743_1.K_1(werkstoff_art=self.werkstoff.art, d_eff=self.d_eff, zugfestigkeit=True)
+            self.K_1B_d_eff = din743_2.K_1(werkstoff_art=self.werkstoff.art, d_eff=self.d_eff, zugfestigkeit=True)
         if self.K_1S_d_eff == None:
-            self.K_1S_d_eff = din743_1.K_1(werkstoff_art=self.werkstoff.art, d_eff=self.d_eff, zugfestigkeit=False)
+            self.K_1S_d_eff = din743_2.K_1(werkstoff_art=self.werkstoff.art, d_eff=self.d_eff, zugfestigkeit=False)
         _print("K_1B(d_eff) =", self.K_1B_d_eff)
         _print("K_1S(d_eff) =", self.K_1S_d_eff)
 
         if self.K_2zd_d == None:
-            self.K_2zd_d = din743_1.K_2_zd(d=self.kerbe.d)
+            self.K_2zd_d = din743_2.K_2_zd(d=self.kerbe.d)
         if self.K_2b_d == None:
-            self.K_2b_d = din743_1.K_2_b(d=self.kerbe.d)
+            self.K_2b_d = din743_2.K_2_b(d=self.kerbe.d)
         if self.K_2t_d == None:
-            self.K_2t_d = din743_1.K_2_t(d=self.kerbe.d)
+            self.K_2t_d = din743_2.K_2_t(d=self.kerbe.d)
         if zda:
             _print("K_2zd(d) =", self.K_2zd_d)
         if ba:
@@ -294,3 +294,6 @@ class Calculator:
         return
     
     pass
+
+
+
