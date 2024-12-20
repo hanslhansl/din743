@@ -6,9 +6,9 @@ Siehe https://github.com/hanslhansl/din743.
 
 
 from typing import Literal, Optional
-from .din743_1 import *
-from .din743_2 import *
-from .din743_3 import *
+from . import din743_1
+from . import din743_2
+from . import din743_3
 
 # enable colored console output on windows
 import colorama
@@ -42,8 +42,8 @@ class Calculator:
 
     def __init__(self,
                 fall : Literal[1, 2],
-                werkstoff : Werkstoff,
-                kerbe : Kerbe,
+                werkstoff : din743_3.Werkstoff,
+                kerbe : din743_2.Kerbe,
                 d_eff : float,
                 F_zdm : float, F_zda : float, F_zdmax : float, M_bm : float, M_ba : float, M_bmax : float, M_tm : float, M_ta : float, M_tmax : float,
                 Rz : float,
@@ -64,6 +64,9 @@ class Calculator:
                 K_sigmazd : Optional[float] = None,
                 K_sigmab : Optional[float] = None,
                 K_tau : Optional[float] = None,
+                K_2Fzd : Optional[float] = None,
+                K_2Fb : Optional[float] = None,
+                K_2Ft : Optional[float] = None,
                 S_min : float | tuple[float, float] = 1.2,
 
                 _print = print,
@@ -97,6 +100,9 @@ class Calculator:
         self.K_sigmazd = K_sigmazd
         self.K_sigmab = K_sigmab
         self.K_tau = K_tau
+        self.K_2Fzd = K_2Fzd
+        self.K_2Fb = K_2Fb
+        self.K_2Ft = K_2Ft
 
         [_print(key, "=", value) for key, value in vars(self).items() if value != None]
 
@@ -144,18 +150,18 @@ class Calculator:
             _print("τ_tW(d_B) =", self.tau_tW_d_B)
 
         if self.K_1B_d_eff == None:
-            self.K_1B_d_eff = K_1(werkstoff_art=self.werkstoff.art, d_eff=self.d_eff, zugfestigkeit=True)
+            self.K_1B_d_eff = din743_1.K_1(werkstoff_art=self.werkstoff.art, d_eff=self.d_eff, zugfestigkeit=True)
         if self.K_1S_d_eff == None:
-            self.K_1S_d_eff = K_1(werkstoff_art=self.werkstoff.art, d_eff=self.d_eff, zugfestigkeit=False)
+            self.K_1S_d_eff = din743_1.K_1(werkstoff_art=self.werkstoff.art, d_eff=self.d_eff, zugfestigkeit=False)
         _print("K_1B(d_eff) =", self.K_1B_d_eff)
         _print("K_1S(d_eff) =", self.K_1S_d_eff)
 
         if self.K_2zd_d == None:
-            self.K_2zd_d = K_2_zd(d=self.kerbe.d)
+            self.K_2zd_d = din743_1.K_2_zd(d=self.kerbe.d)
         if self.K_2b_d == None:
-            self.K_2b_d = K_2_b(d=self.kerbe.d)
+            self.K_2b_d = din743_1.K_2_b(d=self.kerbe.d)
         if self.K_2t_d == None:
-            self.K_2t_d = K_2_t(d=self.kerbe.d)
+            self.K_2t_d = din743_1.K_2_t(d=self.kerbe.d)
         if zda:
             _print("K_2zd(d) =", self.K_2zd_d)
         if ba:
@@ -163,11 +169,11 @@ class Calculator:
         if ta:
             _print("K_2t(d) =", self.K_2t_d)
 
-        self.sigma_B_d_eff = sigma_B_d_eff(self.K_1B_d_eff, self.sigma_B_d_B)
+        self.sigma_B_d_eff = din743_1.sigma_B_d_eff(self.K_1B_d_eff, self.sigma_B_d_B)
         _print("σ_B(d_eff) =", self.sigma_B_d_eff)
-        self.sigma_B_d = sigma_B_d(self.sigma_B_d_B, self.K_1B_d_eff)
+        self.sigma_B_d = din743_1.sigma_B_d(self.sigma_B_d_B, self.K_1B_d_eff)
         _print("σ_B(d) =", self.sigma_B_d)
-        self.sigma_S_d = sigma_S_d(self.sigma_S_d_B, self.K_1S_d_eff)
+        self.sigma_S_d = din743_1.sigma_S_d(self.sigma_S_d_B, self.K_1S_d_eff)
         _print("σ_S(d) =", self.sigma_S_d)
 
         if self.K_Fsigma == None:
@@ -208,9 +214,9 @@ class Calculator:
         if ta:
             _print("K_τ =", self.K_tau)
 
-        self.sigma_zdWK = sigma_zdWK(self.sigma_zdW_d_B, self.K_1B_d_eff, self. K_sigmazd)
-        self.sigma_bWK = sigma_bWK(self.sigma_bW_d_B, self.K_1B_d_eff, self.K_sigmab)
-        self.tau_tWK = tau_tWK(self.tau_tW_d_B, self.K_1B_d_eff, self.K_tau)
+        self.sigma_zdWK = din743_1.sigma_zdWK(self.sigma_zdW_d_B, self.K_1B_d_eff, self. K_sigmazd)
+        self.sigma_bWK = din743_1.sigma_bWK(self.sigma_bW_d_B, self.K_1B_d_eff, self.K_sigmab)
+        self.tau_tWK = din743_1.tau_tWK(self.tau_tW_d_B, self.K_1B_d_eff, self.K_tau)
         if zda:
             _print("σ_zdWK =", self.sigma_zdWK)
         if ba:
@@ -218,9 +224,9 @@ class Calculator:
         if ta:
             _print("τ_tWK =", self.tau_tWK)
 
-        self.psi_zdsigmaK = psi_zdsigmaK(self.sigma_zdWK, self.K_1B_d_eff, self.sigma_B_d_B)
-        self.psi_bsigmaK = psi_bsigmaK(self.sigma_bWK, self.K_1B_d_eff, self.sigma_B_d_B)
-        self.psi_tauK = psi_tauK(self.tau_tWK, self.K_1B_d_eff, self.sigma_B_d_B)
+        self.psi_zdsigmaK = din743_1.psi_zdsigmaK(self.sigma_zdWK, self.K_1B_d_eff, self.sigma_B_d_B)
+        self.psi_bsigmaK = din743_1.psi_bsigmaK(self.sigma_bWK, self.K_1B_d_eff, self.sigma_B_d_B)
+        self.psi_tauK = din743_1.psi_tauK(self.tau_tWK, self.K_1B_d_eff, self.sigma_B_d_B)
         if zda:
             _print("ψ_zdσK =", self.psi_zdsigmaK)
         if ba:
@@ -228,19 +234,22 @@ class Calculator:
         if ta:
             _print("ψ_τK =", self.psi_tauK)
             
-        self.gamma_Fzd = gamma_Fzd(self.kerbe.alpha_sigmazd if hasattr(self.kerbe, "alpha_sigmazd") else self.beta_sigmazd, self.kerbe.umdrehungskerbe, self.harte_randschicht)
-        self.gamma_Fb = gamma_Fb(self.kerbe.alpha_sigmab if hasattr(self.kerbe, "alpha_sigmab") else self.beta_sigmab, self.kerbe.umdrehungskerbe, self.harte_randschicht)
-        self.gamma_Ft = gamma_Ft()
+        self.gamma_Fzd = din743_1.gamma_Fzd(self.kerbe.alpha_sigmazd if hasattr(self.kerbe, "alpha_sigmazd") else self.beta_sigmazd, self.kerbe.umdrehungskerbe, self.harte_randschicht)
+        self.gamma_Fb = din743_1.gamma_Fb(self.kerbe.alpha_sigmab if hasattr(self.kerbe, "alpha_sigmab") else self.beta_sigmab, self.kerbe.umdrehungskerbe, self.harte_randschicht)
+        self.gamma_Ft = din743_1.gamma_Ft()
         if zda or zdmax:
             _print("γ_Fzd =", self.gamma_Fzd)
         if ba or bmax:
             _print("γ_Fb =", self.gamma_Fb)
         if ta or tmax:
             _print("γ_Ft =", self.gamma_Ft)
-
-        self.K_2Fzd = K_2Fzd()
-        self.K_2Fb = K_2Fb(self.harte_randschicht, self.hohlwelle)
-        self.K_2Ft = K_2Ft(self.harte_randschicht, self.hohlwelle)
+            
+        if self.K_2Fzd == None:
+            self.K_2Fzd = din743_1.K_2Fzd()
+        if self.K_2Fb == None:
+            self.K_2Fb = din743_1.K_2Fb(self.harte_randschicht, self.hohlwelle)
+        if self.K_2Ft == None:
+            self.K_2Ft = din743_1.K_2Ft(self.harte_randschicht, self.hohlwelle)
         if zda or zdmax:
             _print("K_2Fzd =", self.K_2Fzd)
         if ba or bmax:
@@ -248,9 +257,9 @@ class Calculator:
         if ta or tmax:
             _print("K_2Ft =", self.K_2Ft)
         
-        self.sigma_zdFK = sigma_zd_bFK(self.K_1S_d_eff, self.K_2Fzd, self.gamma_Fzd, self.sigma_S_d_B)
-        self.sigma_bFK = sigma_zd_bFK(self.K_1S_d_eff, self.K_2Fb, self.gamma_Fb, self.sigma_S_d_B)
-        self.tau_tFK = tau_tFK(self.K_1S_d_eff, self.K_2Ft, self.gamma_Ft, self.sigma_S_d_B)
+        self.sigma_zdFK = din743_1.sigma_zd_bFK(self.K_1S_d_eff, self.K_2Fzd, self.gamma_Fzd, self.sigma_S_d_B)
+        self.sigma_bFK = din743_1.sigma_zd_bFK(self.K_1S_d_eff, self.K_2Fb, self.gamma_Fb, self.sigma_S_d_B)
+        self.tau_tFK = din743_1.tau_tFK(self.K_1S_d_eff, self.K_2Ft, self.gamma_Ft, self.sigma_S_d_B)
         if zda or zdmax:
             _print("σ_zdFK =", self.sigma_zdFK)
         if ba or bmax:
@@ -258,7 +267,7 @@ class Calculator:
         if ta or tmax:
             _print("τ_tFK =", self.tau_tFK)
     
-        self.sigma_mv, self.tau_mv, self.sigma_zdADK, self.sigma_bADK, self.tau_tADK = ADK(self.fall, self.sigma_zdm, self.sigma_bm, self.tau_tm,
+        self.sigma_mv, self.tau_mv, self.sigma_zdADK, self.sigma_bADK, self.tau_tADK = din743_1.ADK(self.fall, self.sigma_zdm, self.sigma_bm, self.tau_tm,
                                                                                                      self.sigma_zda, self.sigma_ba, self.tau_ta,
                                                                                                      self.sigma_zdFK, self.sigma_bFK, self.tau_tFK,
                                                                                                      self.sigma_zdWK, self.sigma_bWK, self.tau_tWK,
@@ -275,8 +284,8 @@ class Calculator:
         if ta:
             _print("τ_tADK =", self.tau_tADK)
 
-        self.S_Dauer = S_Dauer(self.sigma_zda, self.sigma_ba, self.tau_ta, self.sigma_zdADK, self.sigma_bADK, self.tau_tADK)
-        self.S_Verform = S_Verform(self.sigma_zdmax, self.sigma_bmax, self.tau_tmax, self.sigma_zdFK, self.sigma_bFK, self.tau_tFK)
+        self.S_Dauer = din743_1.S_Dauer(self.sigma_zda, self.sigma_ba, self.tau_ta, self.sigma_zdADK, self.sigma_bADK, self.tau_tADK)
+        self.S_Verform = din743_1.S_Verform(self.sigma_zdmax, self.sigma_bmax, self.tau_tmax, self.sigma_zdFK, self.sigma_bFK, self.tau_tFK)
 
         assert self._check_safety(self.S_Dauer, S_min, "S_Dauer", "Sicherheit gegen Dauerbruch", _print) or not _assert
         assert self._check_safety(self.S_Verform, S_min, "S_Verform", "Sicherheit gegen bleibende Verformungen", _print) or not _assert
