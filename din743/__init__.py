@@ -73,7 +73,7 @@ class Calculator:
                 _assert = False,
                 print_all = False):
         """
-        Im Druckbereich sind sigma_zdm und sigma_bm negativ
+        Im Druckbereich sind σ_zdm und σ_bm negativ
         - d_eff: für die Wärmebehandlung maßgebender Durchmesser
         """
         assert(fall in (1, 2))
