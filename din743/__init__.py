@@ -1,8 +1,6 @@
-"""
-Implementiert die DIN 743 zur Tragfähigkeitsberechnung von Wellen und Achsen.
+"""Implementation of DIN 743 - Calculation of load capacity of shafts and axles.
 
-Siehe https://github.com/hanslhansl/din743.
-"""
+see https://github.com/hanslhansl/din743."""
 
 
 from typing import Literal, Optional
