@@ -20,21 +20,21 @@ class Calculator:
     def _check_safety(val, min_or_interv, name, full_name, _print):
         is_safe = True
         if val == float("inf"):
-            _print("\033[33m", full_name, " nicht berechnet\033[0m", sep="")
+            _print("\033[33m", full_name, " not calculated\033[0m", sep="")
         else:
             if isinstance(min_or_interv, tuple):
                 res = min_or_interv[0] <= val <= min_or_interv[1]
                 if res:
                     _print("\033[32m", name, " = ", val, " in ", min_or_interv, "\033[0m", sep="")
                 else:
-                    _print("\033[31m", name, " = ", val, " not in ", min_or_interv, ", ", full_name, " ist nicht erfüllt\033[0m", sep="")
+                    _print("\033[31m", name, " = ", val, " not in ", min_or_interv, ", ", full_name, " is not fulfilled\033[0m", sep="")
                     is_safe = False
             else:
                 res = min_or_interv <= val
                 if res:
                     _print("\033[32m", name, " = ", val, " >= ", min_or_interv, "\033[0m", sep="")
                 else:
-                    _print("\033[31m", name, " = ", val, " < ", min_or_interv, ", ", full_name, " ist nicht erfüllt\033[0m", sep="")
+                    _print("\033[31m", name, " = ", val, " < ", min_or_interv, ", ", full_name, " is not fulfilled\033[0m", sep="")
                     is_safe = False
         return is_safe
 
