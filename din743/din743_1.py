@@ -64,7 +64,7 @@ def _ADK(fall : Literal[1, 2], mv : float, a : float, FK : float, WK : float, ps
         else:
             res = FK / (1 + l)         # Glg 18 & 19
 
-    _print("Fall ", fall, ",", l, "<=" if l <= r else ">", r)
+    _print("Fall ", fall, ", ", l, " <= " if l <= r else " > ", r, sep="")
     return res
 def ADK(fall : Literal[1, 2],
         sigma_zdm : float, sigma_bm : float, tau_tm : float,
