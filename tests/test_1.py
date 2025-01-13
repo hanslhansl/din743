@@ -1,4 +1,5 @@
 import din743
+import din6885
 
 _print = lambda *_, **__: None  #print
 _assert = False
@@ -8,8 +9,8 @@ print_all = True
 def test_MEL1_2024W_1():
     _print("MEL1 2024W #1")
     MEL1_2024W_1 = din743.Calculator(fall = 1,
-        werkstoff = din743.din743_3._50CrMo4,
-        kerbe = din743.din743_2.Absatz(84, 4, 8),
+        werkstoff = din743._50CrMo4,
+        kerbe = din743.Absatz(84, 4, 8),
         d_eff = 100,
         F_zdm = 443341.5553,
         F_zda = 0,
@@ -31,8 +32,8 @@ def test_MEL1_2024W_1():
 def test_MEL1_2024W_2():
     _print("MEL1 2024W #2")
     MEL1_2024W_2 = din743.Calculator(fall = 2,
-        werkstoff = din743.din743_3.C50,
-        kerbe = din743.din743_2.Passfeder(60, 1),
+        werkstoff = din743.C50,
+        kerbe = din743.Passfeder(din6885.PassfederHoheForm(60, 0, din6885.Passfeder.Form.A), 1),
         d_eff = 80,
         F_zdm = 0,
         F_zda = 0,
@@ -54,8 +55,8 @@ def test_MEL1_2024W_2():
 def test_MEL1_2024W_4():
     _print("MEL1 2024W #4")
     MEL1_2024W_4 = din743.Calculator(fall = 2,
-        werkstoff = din743.din743_3.S235,
-        kerbe = din743.din743_2.Spitzkerbe(60, 10),
+        werkstoff = din743.S235,
+        kerbe = din743.Spitzkerbe(60, 10),
         d_eff = 80,
         F_zdm = 40000,
         F_zda = 0,
@@ -76,8 +77,8 @@ def test_MEL1_2024W_4():
 def test_MEL1_2022W():
     _print("MEL1 2022W")
     MEL1_2022W = din743.Calculator(fall = 2,
-        werkstoff = din743.din743_3.E335,
-        kerbe = din743.din743_2.Querbohrung(50, 2),
+        werkstoff = din743.E335,
+        kerbe = din743.Querbohrung(50, 2),
         d_eff = 80,
         F_zdm = 0,
         F_zda = 0,
