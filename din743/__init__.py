@@ -139,7 +139,7 @@ class Calculator:
         self.sigma_B_d_B = self.werkstoff.sigma_B_d_B
         self.sigma_S_d_B = self.werkstoff.sigma_S_d_B
         _print("σ_B(d_B) =", self.sigma_B_d_B)
-        _print("σ_S(d_B) }", self.sigma_S_d_B)
+        _print("σ_S(d_B) =", self.sigma_S_d_B)
 
         zda = self.sigma_zda != 0 or print_all
         ba = self.sigma_ba != 0 or print_all
