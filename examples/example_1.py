@@ -1,13 +1,16 @@
 from din743 import *
+import din6885
 
 werkstoff = din743_3.S500
 K_A = 1.75
 K_S = 2.5
 
+
+
 print("Passfeder Lamellenkupplung")
 lamellenkupplung = Calculator(fall = 2,
     werkstoff = werkstoff,
-    kerbe = din743_2.Passfeder(d = 30, i = 2),
+    kerbe = din743_2.Passfeder(din6885.PassfederHoheForm(30, 0, din6885.Passfeder.Form.A), 2),
     d_eff = 56,
     F_zdm = 0,
     F_zda = 0,
@@ -25,7 +28,7 @@ lamellenkupplung = Calculator(fall = 2,
 print("Passfeder Ritzel")
 ritzel = Calculator(fall = 2,
     werkstoff = lamellenkupplung.werkstoff,
-    kerbe = din743_2.Passfeder(d = 50, i = 1),
+    kerbe = din743_2.Passfeder(din6885.PassfederHoheForm(50, 0, din6885.Passfeder.Form.A), 1),
     d_eff = 56,
     F_zdm = 0,
     F_zda = 0,
@@ -43,7 +46,7 @@ ritzel = Calculator(fall = 2,
 print("Passfeder Rad")
 rad = Calculator(fall = 2,
     werkstoff = werkstoff,
-    kerbe = din743_2.Passfeder(d = 70, i = 2),
+    kerbe = din743_2.Passfeder(din6885.PassfederHoheForm(70, 0, din6885.Passfeder.Form.A), 2),
     d_eff = 78,
     F_zdm = 0,
     F_zda = 0,
@@ -61,7 +64,7 @@ rad = Calculator(fall = 2,
 print("Passfeder drehstarre Kupplung")
 drehstarr = Calculator(fall = 2,
     werkstoff = rad.werkstoff,
-    kerbe = din743_2.Passfeder(d = 55, i = 2),
+    kerbe = din743_2.Passfeder(din6885.PassfederHoheForm(55, 0, din6885.Passfeder.Form.A), 2),
     d_eff = 78,
     F_zdm = 0, 
     F_zda = 0, 

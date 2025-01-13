@@ -1,5 +1,7 @@
 import math as m
 from dataclasses import dataclass
+
+import din6885
 from . import din743_3
 
 
@@ -77,25 +79,29 @@ class _ExperimentelleKerbwirkungszahlen(Kerbe):
         self.msg_t += f"\tK_3t(d) = {K_3_d}\n"
         return beta_d_BK * K_3_d_BK / K_3_d
 
-@dataclass
-class Passfeder(_ExperimentelleKerbwirkungszahlen, _K_F_nach_Welle_Nabe):
+class Passfeder(din6885.Passfeder, _ExperimentelleKerbwirkungszahlen, _K_F_nach_Welle_Nabe):
     """Tabelle 1"""
     umdrehungskerbe = False
     d_BK = 40
 
-    i : int
-
-    def __post_init__(self):
-        super().__post_init__()
-        assert self.i in (1, 2)
+    def __init__(self, passfeder : din6885.Passfeder, i : int):
         
+        super().__init__(passfeder.d_1, passfeder.l, passfeder.form, passfeder.b, passfeder.h, passfeder.t_1)
+        super(_ExperimentelleKerbwirkungszahlen, self).__init__(passfeder.d_1)
+
+        self.i = i
+        assert self.i in (1, 2)
+
+        #super().__post_init__()
+        pass
+
     def beta_sigmazd_d_BK(self, sigma_B_d: float, **_):
         return (3 * (sigma_B_d / 1000)**0.38) * (1.15 if self.i == 2 else 1)
     def beta_sigmab_d_BK(self, sigma_B_d: float, **_):
         return self.beta_sigmazd_d_BK(sigma_B_d)
     def beta_tau_d_BK(self, sigma_B_d: float, **_):
         return (0.56 * 3 * (sigma_B_d / 1000)**0.38 + 0.1) * (1.15 if self.i == 2 else 1)
-    
+
 @dataclass
 class Presssitz(_ExperimentelleKerbwirkungszahlen, _K_F_nach_Welle_Nabe):
     """Tabelle 1"""

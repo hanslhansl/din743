@@ -10,7 +10,8 @@ readme = "README.md"
 license = {file = "LICENSE.txt"}
 authors = [{name = "hanslhansl", email = "p4u1_1@posteo.at"}]
 dependencies = [
-    "colorama"
+    "colorama",
+    "din6885 @ git+https://github.com/hanslhansl/din6885.git"
 ]
 
 [tool.setuptools]
