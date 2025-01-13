@@ -21,12 +21,6 @@ lamellenkupplung = Calculator(fall = 2,
     Rz = 16,
     K_V = 1,
     harte_randschicht = False)
-l = lamellenkupplung.werkstoff.sigma_S_d_B * 0.9 * (7 - 4) * (35) * lamellenkupplung.kerbe.d / 2 * 2 * 0.75 / 1000
-r = 535.93 * 1.75
-print(f"{l} >= {r}")
-print(l/r)
-print()
-assert l >= r
 
 print("Passfeder Ritzel")
 ritzel = Calculator(fall = 2,
@@ -45,12 +39,6 @@ ritzel = Calculator(fall = 2,
     Rz = 16,
     K_V = 1,
     harte_randschicht = False)
-l = ritzel.werkstoff.sigma_S_d_B * 0.9 * (9 - 5.5) * (40) * ritzel.kerbe.d / 2 * 1 * 1 / 1000
-r = 535.93 * 1.75
-print(f"{l} >= {r}")
-print(l/r)
-print()
-assert l >= r
 
 print("Passfeder Rad")
 rad = Calculator(fall = 2,
@@ -69,12 +57,6 @@ rad = Calculator(fall = 2,
     Rz = 16,
     K_V = 1,
     harte_randschicht = False)
-l = rad.werkstoff.sigma_S_d_B * 0.9 * (12 - 7.5) * (48.3) * rad.kerbe.d / 2 * 2 * 0.75 / 1000
-r = 2933.511 * 1.75
-print(f"{l} >= {r}")
-print(l/r)
-print()
-assert l >= r
 
 print("Passfeder drehstarre Kupplung")
 drehstarr = Calculator(fall = 2,
@@ -93,12 +75,6 @@ drehstarr = Calculator(fall = 2,
     Rz = 16,
     K_V = 1,
     harte_randschicht = False)
-l = drehstarr.werkstoff.sigma_S_d_B * 0.9 * (10 - 6) * 70 * drehstarr.kerbe.d / 2 * 2 * 0.75 / 1000
-r = 2933.511 * 1.75
-print(f"{l} >= {r}")
-print(l/r)
-print()
-assert l >= r
 
 print("Absatz 1")
 absatz1 = Calculator(fall = 2,
