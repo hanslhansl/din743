@@ -288,7 +288,6 @@ class Calculator:
         assert self._check_safety(self.S_Dauer, S_min, "S_Dauer", "Sicherheit gegen Dauerbruch", _print) or not _assert
         assert self._check_safety(self.S_Verform, S_min, "S_Verform", "Sicherheit gegen bleibende Verformungen", _print) or not _assert
 
-        _print()
         return
     
     pass
