@@ -4,9 +4,11 @@ see https://github.com/hanslhansl/din743."""
 
 
 from typing import Literal, Optional
-from . import din743_1
-from . import din743_2
-from . import din743_3
+
+from .din743_1 import *
+from .din743_2 import *
+from .din743_3 import *
+
 
 # enable colored console output on windows
 import colorama
@@ -40,8 +42,8 @@ class Calculator:
 
     def __init__(self,
                 fall : Literal[1, 2],
-                werkstoff : din743_3.Werkstoff,
-                kerbe : din743_2.Kerbe,
+                werkstoff : Werkstoff,
+                kerbe : Kerbe,
                 d_eff : float,
                 F_zdm : float, F_zda : float, F_zdmax : float, M_bm : float, M_ba : float, M_bmax : float, M_tm : float, M_ta : float, M_tmax : float,
                 Rz : float,
@@ -80,6 +82,15 @@ class Calculator:
         self.werkstoff = werkstoff
         self.kerbe = kerbe
         self.d_eff = d_eff
+        self.F_zdm = F_zdm
+        self.F_zda = F_zda
+        self.F_zdmax = F_zdmax
+        self.M_bm = M_bm
+        self.M_ba = M_ba
+        self.M_bmax = M_bmax
+        self.M_tm = M_tm
+        self.M_ta = M_ta
+        self.M_tmax = M_tmax
         self.Rz = Rz
         self.K_V = K_V
         self.harte_randschicht = harte_randschicht
@@ -104,23 +115,23 @@ class Calculator:
 
         [_print(key, "=", value) for key, value in vars(self).items() if value != None]
 
-        self.sigma_zdm = self.kerbe.sigma_zd(F_zdm)
-        self.sigma_zda = self.kerbe.sigma_zd(F_zda)
-        self.sigma_zdmax = self.kerbe.sigma_zd(F_zdmax)
+        self.sigma_zdm = self.kerbe.sigma_zd(self.F_zdm)
+        self.sigma_zda = self.kerbe.sigma_zd(self.F_zda)
+        self.sigma_zdmax = self.kerbe.sigma_zd(self.F_zdmax)
         _print("σ_zdm =", self.sigma_zdm)
         _print("σ_zda =", self.sigma_zda)
         _print("σ_zdmax =", self.sigma_zdmax)
 
-        self.sigma_bm = self.kerbe.sigma_b(M_bm)
-        self.sigma_ba = self.kerbe.sigma_b(M_ba)
-        self.sigma_bmax = self.kerbe.sigma_b(M_bmax)
+        self.sigma_bm = self.kerbe.sigma_b(self.M_bm)
+        self.sigma_ba = self.kerbe.sigma_b(self.M_ba)
+        self.sigma_bmax = self.kerbe.sigma_b(self.M_bmax)
         _print("σ_bm =", self.sigma_bm)
         _print("σ_ba =", self.sigma_ba)
         _print("σ_bmax =", self.sigma_bmax)
 
-        self.tau_tm = self.kerbe.tau_t(M_tm)
-        self.tau_ta = self.kerbe.tau_t(M_ta)
-        self.tau_tmax = self.kerbe.tau_t(M_tmax)
+        self.tau_tm = self.kerbe.tau_t(self.M_tm)
+        self.tau_ta = self.kerbe.tau_t(self.M_ta)
+        self.tau_tmax = self.kerbe.tau_t(self.M_tmax)
         _print("τ_tm =", self.tau_tm)
         _print("τ_ta =", self.tau_ta)
         _print("τ_tmax =", self.tau_tmax)
@@ -184,19 +195,20 @@ class Calculator:
             _print("K_Fτ =", self.K_Ftau)
 
         if self.beta_sigmazd == None:
-            self.beta_sigmazd = kerbe.beta_sigmazd(sigma_B_d=self.sigma_B_d, sigma_S_d=self.sigma_S_d, harte_randschicht=self.harte_randschicht)
+            self.beta_sigmazd = self.kerbe.beta_sigmazd(sigma_B_d=self.sigma_B_d, sigma_S_d=self.sigma_S_d, harte_randschicht=self.harte_randschicht)
         if self.beta_sigmab == None:
-            self.beta_sigmab = kerbe.beta_sigmab(sigma_B_d=self.sigma_B_d, sigma_S_d=self.sigma_S_d, harte_randschicht=self.harte_randschicht)
+            self.beta_sigmab = self.kerbe.beta_sigmab(sigma_B_d=self.sigma_B_d, sigma_S_d=self.sigma_S_d, harte_randschicht=self.harte_randschicht)
         if self.beta_tau == None:
-            self.beta_tau = kerbe.beta_tau(sigma_B_d=self.sigma_B_d, sigma_S_d=self.sigma_S_d, harte_randschicht=self.harte_randschicht)
+            self.beta_tau = self.kerbe.beta_tau(sigma_B_d=self.sigma_B_d, sigma_S_d=self.sigma_S_d, harte_randschicht=self.harte_randschicht)
+
         if zda:
-            _print(kerbe.msg_zd, end="")
+            _print(self.kerbe.msg_zd, end="")
             _print("β_σzd =", self.beta_sigmazd)
         if ba:
-            _print(kerbe.msg_b, end="")
+            _print(self.kerbe.msg_b, end="")
             _print("β_σb =", self.beta_sigmab)
         if ta:
-            _print(kerbe.msg_t, end="")
+            _print(self.kerbe.msg_t, end="")
             _print("β_τ =", self.beta_tau)
   
         if self.K_sigmazd == None:
@@ -291,6 +303,3 @@ class Calculator:
         return
     
     pass
-
-
-

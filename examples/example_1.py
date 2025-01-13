@@ -7,7 +7,6 @@ K_S = 2.5
 
 
 
-print("Passfeder Lamellenkupplung")
 lamellenkupplung = Calculator(fall = 2,
     werkstoff = werkstoff,
     kerbe = din743_2.Passfeder(din6885.PassfederHoheForm(30, 0, din6885.Passfeder.Form.A), 2),
@@ -24,8 +23,8 @@ lamellenkupplung = Calculator(fall = 2,
     Rz = 16,
     K_V = 1,
     harte_randschicht = False)
+print()
 
-print("Passfeder Ritzel")
 ritzel = Calculator(fall = 2,
     werkstoff = lamellenkupplung.werkstoff,
     kerbe = din743_2.Passfeder(din6885.PassfederHoheForm(50, 0, din6885.Passfeder.Form.A), 1),
@@ -42,8 +41,8 @@ ritzel = Calculator(fall = 2,
     Rz = 16,
     K_V = 1,
     harte_randschicht = False)
+print()
 
-print("Passfeder Rad")
 rad = Calculator(fall = 2,
     werkstoff = werkstoff,
     kerbe = din743_2.Passfeder(din6885.PassfederHoheForm(70, 0, din6885.Passfeder.Form.A), 2),
@@ -60,8 +59,8 @@ rad = Calculator(fall = 2,
     Rz = 16,
     K_V = 1,
     harte_randschicht = False)
+print()
 
-print("Passfeder drehstarre Kupplung")
 drehstarr = Calculator(fall = 2,
     werkstoff = rad.werkstoff,
     kerbe = din743_2.Passfeder(din6885.PassfederHoheForm(55, 0, din6885.Passfeder.Form.A), 2),
@@ -78,8 +77,8 @@ drehstarr = Calculator(fall = 2,
     Rz = 16,
     K_V = 1,
     harte_randschicht = False)
+print()
 
-print("Absatz 1")
 absatz1 = Calculator(fall = 2,
     werkstoff = werkstoff,
     kerbe = din743_2.Absatz(d = 60, r = 1, t = 5),
@@ -96,8 +95,8 @@ absatz1 = Calculator(fall = 2,
     Rz = 16,
     K_V = 1,
     harte_randschicht = False)
+print()
 
-print("Absatz 2")
 absatz2 = Calculator(fall = 2,
     werkstoff = werkstoff,
     kerbe = din743_2.Absatz(d = 70, r = 1, t = 4),
@@ -114,8 +113,8 @@ absatz2 = Calculator(fall = 2,
     Rz = 16,
     K_V = 1,
     harte_randschicht = False)
+print()
 
-print("Absatz 3")
 absatz3 = Calculator(fall = 2,
     werkstoff = werkstoff,
     kerbe = din743_2.Absatz(d = 60, r = 1, t = 9),
@@ -132,8 +131,8 @@ absatz3 = Calculator(fall = 2,
     Rz = 16,
     K_V = 1,
     harte_randschicht = False)
+print()
 
-print("Freistrich 1")
 freistrich1 = Calculator(fall = 2,
     werkstoff = werkstoff,
     kerbe = din743_2.Freistrich(d = 55.4, r = 1, t = 2.3),
@@ -150,3 +149,4 @@ freistrich1 = Calculator(fall = 2,
     Rz = 16,
     K_V = 1,
     harte_randschicht = False)
+print()
