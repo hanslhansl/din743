@@ -1,15 +1,15 @@
-from din743 import *
+import din743
 import din6885
 
-werkstoff = din743_3.S500
+werkstoff = din743.din743_3.S500
 K_A = 1.75
 K_S = 2.5
 
 
 
-lamellenkupplung = Calculator(fall = 2,
+lamellenkupplung = din743.Calculator(fall = 2,
     werkstoff = werkstoff,
-    kerbe = din743_2.Passfeder(din6885.PassfederHoheForm(30, 0, din6885.Passfeder.Form.A), 2),
+    kerbe = din743.din743_2.Passfeder(din6885.PassfederHoheForm(30, 0, din6885.Passfeder.Form.A), 2),
     d_eff = 56,
     F_zdm = 0,
     F_zda = 0,
@@ -25,9 +25,9 @@ lamellenkupplung = Calculator(fall = 2,
     harte_randschicht = False)
 print()
 
-ritzel = Calculator(fall = 2,
+ritzel = din743.Calculator(fall = 2,
     werkstoff = lamellenkupplung.werkstoff,
-    kerbe = din743_2.Passfeder(din6885.PassfederHoheForm(50, 0, din6885.Passfeder.Form.A), 1),
+    kerbe = din743.din743_2.Passfeder(din6885.PassfederHoheForm(50, 0, din6885.Passfeder.Form.A), 1),
     d_eff = 56,
     F_zdm = 0,
     F_zda = 0,
@@ -43,9 +43,9 @@ ritzel = Calculator(fall = 2,
     harte_randschicht = False)
 print()
 
-rad = Calculator(fall = 2,
+rad = din743.Calculator(fall = 2,
     werkstoff = werkstoff,
-    kerbe = din743_2.Passfeder(din6885.PassfederHoheForm(70, 0, din6885.Passfeder.Form.A), 2),
+    kerbe = din743.din743_2.Passfeder(din6885.PassfederHoheForm(70, 0, din6885.Passfeder.Form.A), 2),
     d_eff = 78,
     F_zdm = 0,
     F_zda = 0,
@@ -61,9 +61,9 @@ rad = Calculator(fall = 2,
     harte_randschicht = False)
 print()
 
-drehstarr = Calculator(fall = 2,
+drehstarr = din743.Calculator(fall = 2,
     werkstoff = rad.werkstoff,
-    kerbe = din743_2.Passfeder(din6885.PassfederHoheForm(55, 0, din6885.Passfeder.Form.A), 2),
+    kerbe = din743.din743_2.Passfeder(din6885.PassfederHoheForm(55, 0, din6885.Passfeder.Form.A), 2),
     d_eff = 78,
     F_zdm = 0, 
     F_zda = 0, 
@@ -79,9 +79,9 @@ drehstarr = Calculator(fall = 2,
     harte_randschicht = False)
 print()
 
-absatz1 = Calculator(fall = 2,
+absatz1 = din743.Calculator(fall = 2,
     werkstoff = werkstoff,
-    kerbe = din743_2.Absatz(d = 60, r = 1, t = 5),
+    kerbe = din743.din743_2.Absatz(d = 60, r = 1, t = 5),
     d_eff = 78,
     F_zdm = 0, 
     F_zda = 0,
@@ -97,9 +97,9 @@ absatz1 = Calculator(fall = 2,
     harte_randschicht = False)
 print()
 
-absatz2 = Calculator(fall = 2,
+absatz2 = din743.Calculator(fall = 2,
     werkstoff = werkstoff,
-    kerbe = din743_2.Absatz(d = 70, r = 1, t = 4),
+    kerbe = din743.din743_2.Absatz(d = 70, r = 1, t = 4),
     d_eff = 78,
     F_zdm = 0,
     F_zda = 0,
@@ -115,9 +115,9 @@ absatz2 = Calculator(fall = 2,
     harte_randschicht = False)
 print()
 
-absatz3 = Calculator(fall = 2,
+absatz3 = din743.Calculator(fall = 2,
     werkstoff = werkstoff,
-    kerbe = din743_2.Absatz(d = 60, r = 1, t = 9),
+    kerbe = din743.din743_2.Absatz(d = 60, r = 1, t = 9),
     d_eff = 78,
     F_zdm = 0,
     F_zda = 0,
@@ -133,9 +133,9 @@ absatz3 = Calculator(fall = 2,
     harte_randschicht = False)
 print()
 
-freistrich1 = Calculator(fall = 2,
+freistrich1 = din743.Calculator(fall = 2,
     werkstoff = werkstoff,
-    kerbe = din743_2.Freistrich(d = 55.4, r = 1, t = 2.3),
+    kerbe = din743.din743_2.Freistrich(d = 55.4, r = 1, t = 2.3),
     d_eff = 78,
     F_zdm = 0,
     F_zda = 0,
