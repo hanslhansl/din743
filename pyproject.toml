@@ -6,9 +6,10 @@ build-backend = "setuptools.build_meta"
 name = "din743"
 version = "0.1.0"
 description = "Implementation of DIN 743 - Calculation of load capacity of shafts and axles"
+requires-python = ">=3.10"
 readme = "README.md"
 license = {file = "LICENSE.txt"}
-authors = [{name = "hanslhansl", email = "p4u1_1@posteo.at"}]
+authors = [{name = "hanslhansl"}]
 dependencies = [
     "colorama",
     "din6885 @ git+https://github.com/hanslhansl/din6885.git"
@@ -16,3 +17,9 @@ dependencies = [
 
 [tool.setuptools]
 packages = ["din743"]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.0.2",
+    "pytest-cov>=5.0.0"
+]
